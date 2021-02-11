@@ -1,0 +1,7 @@
+{
+  "name": "Who Reacted",
+  "version": "1.0.0",
+  "description": "Shows the avatars of the users who reacted to a message.",
+  "author": "Jaime Filho (Marmota)",
+  "license": "MIT"
+}
