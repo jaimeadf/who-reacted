@@ -2,7 +2,7 @@ const { React } = require('powercord/webpack');
 const { TextInput, SliderInput, SwitchItem } = require('powercord/components/settings');
 
 const Settings = ({ getSetting, updateSetting }) => {
-  function getThresholdMarkerLabel(value) {
+  function getThresholdMarkerLabel (value) {
     if (value === 0) {
       return 'Off';
     }
