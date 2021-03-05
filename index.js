@@ -92,7 +92,7 @@ module.exports = class WhoReacted extends Plugin {
   }
 
   async _findReaction () {
-    return this._findReactionReactElement(await waitFor(this.selectors.reaction)).elementType;
+    return this._findReactionReactElement(await waitFor(this.selectors.reaction)).type;
   }
 
   // Thanks @Juby210
@@ -103,7 +103,7 @@ module.exports = class WhoReacted extends Plugin {
   }
 
   _findReactionReactElement (node) {
-    return findInTree(getReactInstance(node), r => r?.elementType?.displayName === 'Reaction', {
+    return findInTree(getReactInstance(node), r => r?.type?.displayName === 'Reaction', {
       walkable: [ 'return' ]
     });
   }
