@@ -15,7 +15,7 @@ module.exports = class WhoReacted extends Plugin {
   }
 
   async startPlugin () {
-    this.loadStylesheet('style.scss');
+    await this.loadStylesheet('style.scss');
 
     powercord.api.settings.registerSettings('who-reacted', {
       category: this.entityID,
@@ -39,7 +39,23 @@ module.exports = class WhoReacted extends Plugin {
     const { settings } = this;
 
     function canShowReactors ({ reactions }) {
-      return reactions.length <= settings.get('reactionThreshold', 10);
+      const reactionThreshold = settings.get('reactionThreshold', 10);
+      if (reactionThreshold !== 0 && reactions.length > reactionThreshold) {
+        return false;
+      }
+
+      const userThreshold = settings.get('userThreshold', 100);
+      if (userThreshold !== 0) {
+        const userCount = settings.get('useHighestUserCount', true) ?
+          Math.max(...reactions.map(reaction => reaction.count)) :
+          reactions.reduce((total, reaction) => total + reaction.count, 0);
+
+        if (userCount > userThreshold) {
+          return false;
+        }
+      }
+
+      return true;
     }
 
     inject('who-reacted-reactors', Reaction.prototype, 'render', function (args, result) {
