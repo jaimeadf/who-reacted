@@ -71,7 +71,7 @@ module.exports = class WhoReacted extends Plugin {
           popout.props.children = props => {
             const reactionInner = renderReactionInner(props);
 
-            reactionInner.props.children.props.children.push(React.createElement(Reactors, {
+            reactionInner.props.children.push(React.createElement(Reactors, {
               message,
               emoji,
               count,
